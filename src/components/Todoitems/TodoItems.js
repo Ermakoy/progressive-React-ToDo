@@ -1,19 +1,15 @@
 import React from 'react';
+import './TodoItems.css';
 
-  class TodoItems extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+class TodoItems extends React.Component {
 
-    this.createTasks = this.createTasks.bind(this);
-  }
-
-  createTasks(item) {
+  createTask = (item) => {
     return <li key={item.key}>{item.text}</li>
-  }
+  };
 
   render() {
     let todoEntries = this.props.entries;
-    let listItems = todoEntries.map(this.createTasks);
+    let listItems = todoEntries.map(this.createTask);
 
     return (
       <ul className="list">
@@ -23,4 +19,5 @@ import React from 'react';
   }
 
 }
+
 export default TodoItems;
