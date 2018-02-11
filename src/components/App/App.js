@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import TodoItems from "../Todoitems/TodoItems";
 import './App.css';
 
@@ -8,15 +8,23 @@ class App extends Component {
     super(props, context);
 
     this.state = {
-      items : []
+      items: []
     };
-    this.addItem = this.addItem.bind(this);
   }
 
-  addItem(e) {
+  deleteItem = (key) => {
+    let filteredItems = this.state.items.filter((item) => {
+      return item.key !== key;
+    });
+    this.setState({
+      items: filteredItems
+    });
+  };
+
+  addItem = (e) => {
     let itemArray = this.state.items;
 
-    if (this._inputElement.value !== ''){
+    if (this._inputElement.value !== '') {
       itemArray.unshift({
         text: this._inputElement.value,
         key: Date.now()
@@ -31,7 +39,7 @@ class App extends Component {
 
     }
     e.preventDefault();
-  }
+  };
 
   render() {
     return (
@@ -44,7 +52,8 @@ class App extends Component {
             <button type="submit">Add</button>
           </form>
         </div>
-        <TodoItems entries={this.state.items}/>
+        <TodoItems delete={this.deleteItem}
+                   entries={this.state.items}/>
       </div>
     );
   }
