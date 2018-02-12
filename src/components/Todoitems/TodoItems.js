@@ -1,10 +1,10 @@
 import React from 'react';
 import './TodoItems.css';
+import FlipMove from 'react-flip-move';
 
 class TodoItems extends React.Component {
 
   delete = (key) => {
-    console.log('del');
     this.props.delete(key);
   };
 
@@ -19,7 +19,9 @@ class TodoItems extends React.Component {
 
     return (
       <ul className="list">
+        <FlipMove duration={250} easing="ease-out">
         {listItems}
+        </FlipMove>
       </ul>
     );
   }
