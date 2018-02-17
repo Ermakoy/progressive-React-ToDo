@@ -8,7 +8,9 @@ class App extends Component {
     super(props, context);
 
     this.state = {
-      items: []
+      items: [],
+      done: 0,
+      left: 0
     };
   }
 
@@ -16,8 +18,12 @@ class App extends Component {
     let filteredItems = this.state.items.filter((item) => {
       return item.key !== key;
     });
-    this.setState({
-      items: filteredItems
+    this.setState((prevState)=>{
+      return {
+        items: filteredItems,
+        done: prevState.done+1,
+        left: prevState.left-1
+      }
     });
   };
 
@@ -30,12 +36,14 @@ class App extends Component {
         key: Date.now()
       });
 
-      this.setState({
-        items: itemArray
+      this.setState((prevState)=>{
+        return {
+          items: itemArray,
+          left: prevState.left+1
+        }
       });
 
       this._inputElement.value = '';
-      console.log(itemArray);
 
     }
     e.preventDefault();
@@ -51,6 +59,10 @@ class App extends Component {
                    placeholder='Enter the task'/>
             <button type="submit">Add</button>
           </form>
+        </div>
+        <div>
+          <span>Done: {this.state.done}</span>
+          <span>Left: {this.state.left}</span>
         </div>
         <TodoItems delete={this.deleteItem}
                    entries={this.state.items}/>
